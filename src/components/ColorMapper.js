@@ -3,11 +3,11 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Slider from "@material-ui/core/Slider";
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import { parse } from "querystring";
 import { Slide } from "@material-ui/core";
-
 
 function valuetext(value) {
   console.log(value);
@@ -15,7 +15,7 @@ function valuetext(value) {
 }
 
 export const ColorMapper = props => {
-  console.log("@@@@@props", props.data);
+  // console.log("@@@@@props", props.data);
   // const convertProps = props => {
   //   console.log("+++++")
   //   let res = [];
@@ -70,68 +70,45 @@ export const ColorMapper = props => {
 
   ////////
 
-
-
-
-
-
-
-
-
-
-
-
   // const [value, setValue] = React.useState(state);
+
+
+
   const handleChange = (event, newValue, name) => {
+    console.log("event", event);
+    Object.keys(event).forEach(key => console.log(`${key}:`, event[key]))
     state = props.handler(name, { start: newValue[0], end: newValue[1] });
   };
 
-  // const useStyles = makeStyles({
-  //   root: { 
-  //     color: "orange"
-  //   }
-  // });
-  // const classes = useStyles();
-
   return props.data.map(elem => {
-
     let name;
     let min;
     let max;
+console.log(elem)
     Object.keys(elem).forEach(key => {
       name = key;
       min = elem[key].min;
       max = elem[key].max;
     });
-    console.log(name);
-    
-    // const AirbnbSlider = withStyles({
-    //   root: {
-    //     color: `${name}`,
-    //     height: 3,
-       
-    //   }
-    // })(Slider);
-    
-    const useStyles = makeStyles({
-      root: { 
-        color: `${name}`
-      }
-    });
-   
-    // console.log("name, min, max", name, min, max);
+
     return (
+      <Grid style={{display:"flex"}}>
       <Slider
-      className={useStyles.root}
         value={[min, max]}
         name={name}
+        style={{ color: `${name}`,width: `50%` }}
         onChange={(e, value) => handleChange(e, value, name)}
+        onChangeCommitted={()=>props.onChange(`${name}`)}
         valueLabelDisplay="auto"
         aria-labelledby="range-slider"
-        // getAriaValueText={valuetext}
+        //   getAriaValueText={valuetext}
         min={props.numberRange[0]}
         max={props.numberRange[1]}
       />
+      <Typography style={{ marginLeft: "10px"}}>
+    {max} {props.unit}
+      </Typography>
+      </Grid>
     );
   });
 };
