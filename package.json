@@ -7,7 +7,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.3.5",
-    "jsdom": "15.1.1",
+    "jsdom": "16.5.0",
     "mocha": "^6.1.4",
     "parcel-bundler": "^1.12.3",
     "react-addons-test-utils": "^0.14.7",
